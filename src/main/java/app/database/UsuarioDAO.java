@@ -8,7 +8,6 @@ import java.util.List;
 
 public class UsuarioDAO {
 
-    // CREATE
     public void criar(Usuario usuario) {
         String sql = "INSERT INTO usuarios(nome, email, telefone) VALUES(?, ?, ?)";
 
@@ -34,7 +33,6 @@ public class UsuarioDAO {
         }
     }
 
-    // READ ALL
     public List<Usuario> listarTodos() {
         String sql = "SELECT * FROM usuarios ORDER BY nome";
         List<Usuario> usuarios = new ArrayList<>();
@@ -64,7 +62,6 @@ public class UsuarioDAO {
         return usuarios;
     }
 
-    // READ BY ID
     public Usuario buscarPorId(int id) {
         String sql = "SELECT * FROM usuarios WHERE id = ?";
 
@@ -94,7 +91,6 @@ public class UsuarioDAO {
         return null;
     }
 
-    // UPDATE
     public boolean atualizar(Usuario usuario) {
         String sql = "UPDATE usuarios SET nome = ?, email = ?, telefone = ? WHERE id = ?";
 
@@ -115,7 +111,6 @@ public class UsuarioDAO {
         }
     }
 
-    // DELETE
     public boolean excluir(int id) {
         String sql = "DELETE FROM usuarios WHERE id = ?";
 
@@ -132,7 +127,6 @@ public class UsuarioDAO {
         }
     }
 
-    // Verifica se email já existe (para validação)
     public boolean emailExiste(String email, int idExcluir) {
         String sql = "SELECT COUNT(*) FROM usuarios WHERE email = ? AND id != ?";
 
@@ -153,7 +147,6 @@ public class UsuarioDAO {
         return false;
     }
 
-    // Busca por nome (para futuras implementações de busca)
     public List<Usuario> buscarPorNome(String nome) {
         String sql = "SELECT * FROM usuarios WHERE nome LIKE ? ORDER BY nome";
         List<Usuario> usuarios = new ArrayList<>();

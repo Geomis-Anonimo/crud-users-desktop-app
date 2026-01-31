@@ -15,7 +15,7 @@ public class UsuarioTable extends AbstractTableModel {
 
     public void setUsuarios(List<Usuario> usuarios) {
         this.usuarios = usuarios;
-        fireTableDataChanged(); // Notifica a tabela que os dados mudaram
+        fireTableDataChanged();
     }
 
     public Usuario getUsuario(int linha) {

@@ -13,7 +13,6 @@ public class UsuarioController {
     }
 
     public void criarUsuario(String nome, String email, String telefone) {
-        // Validação básica
         if (nome == null || nome.trim().isEmpty()) {
             throw new IllegalArgumentException("Nome é obrigatório");
         }
@@ -21,7 +20,6 @@ public class UsuarioController {
             throw new IllegalArgumentException("Email é obrigatório");
         }
 
-        // Verifica se email já existe
         if (usuarioDAO.emailExiste(email, 0)) {
             throw new IllegalArgumentException("Email já cadastrado");
         }
@@ -35,7 +33,6 @@ public class UsuarioController {
     }
 
     public boolean atualizarUsuario(int id, String nome, String email, String telefone) {
-        // Validação básica
         if (nome == null || nome.trim().isEmpty()) {
             throw new IllegalArgumentException("Nome é obrigatório");
         }
@@ -43,7 +40,6 @@ public class UsuarioController {
             throw new IllegalArgumentException("Email é obrigatório");
         }
 
-        // Verifica se email já existe (excluindo o próprio usuário)
         if (usuarioDAO.emailExiste(email, id)) {
             throw new IllegalArgumentException("Email já cadastrado para outro usuário");
         }
@@ -60,7 +56,6 @@ public class UsuarioController {
         return usuarioDAO.buscarPorId(id);
     }
 
-    // Novo método para busca por nome
     public List<Usuario> buscarUsuariosPorNome(String nome) {
         return usuarioDAO.buscarPorNome(nome);
     }

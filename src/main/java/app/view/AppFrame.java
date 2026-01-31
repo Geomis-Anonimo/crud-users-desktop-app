@@ -18,16 +18,13 @@ public class AppFrame extends JFrame {
     private UsuarioTable tableModel;
     private JTable tabelaUsuarios;
 
-    // Campos do formulário
     private JTextField txtId;
     private JTextField txtNome;
     private JTextField txtEmail;
     private JTextField txtTelefone;
 
-    // Campo de busca
     private JTextField txtBusca;
 
-    // Botões
     private JButton btnSalvar;
     private JButton btnNovo;
     private JButton btnExcluir;
@@ -46,19 +43,15 @@ public class AppFrame extends JFrame {
         setSize(1000, 700);
         setLocationRelativeTo(null);
 
-        // Layout principal
         JPanel painelPrincipal = new JPanel(new BorderLayout(10, 10));
         painelPrincipal.setBorder(new EmptyBorder(10, 10, 10, 10));
 
-        // Painel superior com busca
         JPanel painelSuperior = criarPainelSuperior();
         painelPrincipal.add(painelSuperior, BorderLayout.NORTH);
 
-        // Painel de formulário
         JPanel painelFormulario = criarPainelFormulario();
         painelPrincipal.add(painelFormulario, BorderLayout.WEST);
 
-        // Painel da tabela
         JPanel painelTabela = criarPainelTabela();
         painelPrincipal.add(painelTabela, BorderLayout.CENTER);
 
@@ -101,16 +94,14 @@ public class AppFrame extends JFrame {
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(5, 5, 5, 15);
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.anchor = GridBagConstraints.NORTHWEST; // Isso é crucial!
+        gbc.anchor = GridBagConstraints.NORTHWEST;
 
-        // Campo ID (oculto)
         txtId = new JTextField();
         txtId.setVisible(false);
 
-        // Nome
         gbc.gridx = 0; gbc.gridy = 0;
         gbc.weightx = 0;
-        gbc.weighty = 0; // Sem peso vertical inicialmente
+        gbc.weighty = 0;
         painel.add(new JLabel("Nome *:"), gbc);
 
         gbc.gridx = 1; gbc.gridy = 0;
@@ -118,7 +109,6 @@ public class AppFrame extends JFrame {
         txtNome = new JTextField(15);
         painel.add(txtNome, gbc);
 
-        // Email
         gbc.gridx = 0; gbc.gridy = 1;
         gbc.weightx = 0;
         painel.add(new JLabel("Email *:"), gbc);
@@ -128,7 +118,6 @@ public class AppFrame extends JFrame {
         txtEmail = new JTextField(15);
         painel.add(txtEmail, gbc);
 
-        // Telefone
         gbc.gridx = 0; gbc.gridy = 2;
         gbc.weightx = 0;
         painel.add(new JLabel("Telefone:"), gbc);
@@ -138,20 +127,18 @@ public class AppFrame extends JFrame {
         txtTelefone = new JTextField(15);
         painel.add(txtTelefone, gbc);
 
-        // Painel de botões do formulário
         gbc.gridx = 0; gbc.gridy = 3;
         gbc.gridwidth = 2;
         gbc.fill = GridBagConstraints.NONE;
         gbc.anchor = GridBagConstraints.CENTER;
-        gbc.weighty = 0; // Botões não recebem peso vertical
+        gbc.weighty = 0;
         JPanel painelBotoesForm = criarPainelBotoesFormulario();
         painel.add(painelBotoesForm, gbc);
 
-        // Componente vazio flexível para empurrar tudo para cima
         gbc.gridx = 0; gbc.gridy = 4;
         gbc.gridwidth = 2;
         gbc.fill = GridBagConstraints.VERTICAL;
-        gbc.weighty = 1.0; // Peso vertical 1.0 ocupa todo espaço restante
+        gbc.weighty = 1.0;
         painel.add(Box.createVerticalGlue(), gbc);
 
         return painel;
@@ -165,7 +152,6 @@ public class AppFrame extends JFrame {
         btnExcluir = new JButton("Excluir");
         btnLimpar = new JButton("Limpar");
 
-        // Cores
         btnNovo.setBackground(new Color(70, 130, 180));
         btnSalvar.setBackground(new Color(34, 139, 34));
         btnExcluir.setBackground(new Color(220, 20, 60));
@@ -175,7 +161,6 @@ public class AppFrame extends JFrame {
         btnSalvar.setForeground(Color.WHITE);
         btnExcluir.setForeground(Color.WHITE);
 
-        // Ações
         btnNovo.addActionListener(e -> novoUsuario());
         btnSalvar.addActionListener(e -> salvarUsuario());
         btnExcluir.addActionListener(e -> excluirUsuario());
@@ -196,22 +181,18 @@ public class AppFrame extends JFrame {
         tableModel = new UsuarioTable();
         tabelaUsuarios = new JTable(tableModel);
 
-        // Configurar as colunas
         configurarColunasTabela();
 
-        // Melhorar a aparência da tabela
         tabelaUsuarios.setRowHeight(25);
         tabelaUsuarios.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         tabelaUsuarios.getTableHeader().setFont(new Font("SansSerif", Font.BOLD, 12));
 
-        // Listener para seleção
         tabelaUsuarios.getSelectionModel().addListSelectionListener(e -> {
             if (!e.getValueIsAdjusting()) {
                 selecionarUsuarioDaTabela();
             }
         });
 
-        // Adicionar tooltip
         tabelaUsuarios.setToolTipText("Clique em um usuário para editar");
 
         JScrollPane scrollPane = new JScrollPane(tabelaUsuarios);
@@ -287,14 +268,12 @@ public class AppFrame extends JFrame {
             String idStr = txtId.getText().trim();
 
             if (idStr.isEmpty()) {
-                // Novo usuário
                 controller.criarUsuario(nome, email, telefone);
                 JOptionPane.showMessageDialog(this,
                         "Usuário criado com sucesso!",
                         "Sucesso",
                         JOptionPane.INFORMATION_MESSAGE);
             } else {
-                // Atualizar usuário
                 int id = Integer.parseInt(idStr);
                 boolean sucesso = controller.atualizarUsuario(id, nome, email, telefone);
                 if (sucesso) {
@@ -382,7 +361,6 @@ public class AppFrame extends JFrame {
         tableModel.setUsuarios(controller.listarUsuarios());
     }
 
-    // Adicionar menu para limpar banco de dados (apenas para desenvolvimento)
     private void criarMenu() {
         JMenuBar menuBar = new JMenuBar();
         JMenu menuArquivo = new JMenu("Arquivo");
